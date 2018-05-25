@@ -1,6 +1,3 @@
-/**
- * 用户相关
- */
 import { Router } from 'express';
 
 import { controller, route } from '../core/injector';

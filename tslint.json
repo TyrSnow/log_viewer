@@ -4,6 +4,10 @@
     "node_modules/tslint-microsoft-contrib"
   ],
   "rules": {
+    "no-import-side-effect": false,
+    "no-unused-expression": false,
+    "no-backbone-get-set-outside-model": false,
+    "no-implicit-dependencies": false,
     "ordered-imports": false,
     "missing-jsdoc": false,
     "no-parameter-properties": false,

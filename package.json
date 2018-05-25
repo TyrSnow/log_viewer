@@ -6,7 +6,7 @@
   },
   "scripts": {
     "lint": "tslint -c tslint.json 'api/**/*.ts'",
-    "test": "set NODE_ENV=test&& nyc mocha -r ./node_modules/ts-node/register -r ./node_modules/source-map-support/register *.spec.ts"
+    "test": "set NODE_ENV=test&& nyc mocha -r ./node_modules/ts-node/register -r ./node_modules/source-map-support/register api/**/*.spec.ts"
   },
   "nyc": {
     "extension": [
@@ -32,9 +32,13 @@
   "dependencies": {
     "body-parser": "^1.18.3",
     "express": "^4.16.3",
+    "express-jsonschema": "^1.1.6",
+    "express-jwt": "^5.3.1",
+    "jsonwebtoken": "^8.2.1",
+    "log4js": "^2.7.0",
     "mongoose": "^5.1.1",
-    "supertest": "^3.1.0",
-    "reflect-metadata": "^0.1.12"
+    "reflect-metadata": "^0.1.12",
+    "supertest": "^3.1.0"
   },
   "devDependencies": {
     "@types/chai": "^4.1.3",
