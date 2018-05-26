@@ -18,7 +18,7 @@
         "--es_staging"
       ],
       "env": {
-        "NODE_ENV": "development"
+        "NODE_ENV": "develop"
       },
       "console": "internalConsole"
     },

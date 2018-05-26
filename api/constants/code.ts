@@ -18,6 +18,9 @@ const CODE = {
   PART_COMPLETE: C(10501, '部分操作未能完成'),
   ACCESS_DENY: C(10400, '用户操作被拒绝', 401),
   NOT_FOUND: C(10404, '资源不存在'),
+
+  // 用户注册
+  DUMPLICATE_NAME: C(20000, '用户名已存在'),
 };
 
 export default CODE;

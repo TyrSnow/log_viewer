@@ -1,5 +1,16 @@
 import app from './app';
+import config from './config';
 
-app.listen(3000, () => {
-  console.log('Server start at port: ', 3000);
+process.on('uncaughtException', (err) => {
+  console.error('UnCaughtException: ', err);
 });
+
+process.on('unhandledRejection', (err) => {
+  console.error('unhandledRejection: ', err);
+});
+
+const server = app.listen(config.port, () => {
+  console.log('Server start at port: ', config.port);
+});
+
+export default server;

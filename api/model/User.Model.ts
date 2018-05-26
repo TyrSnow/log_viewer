@@ -24,12 +24,8 @@ const model = new Schema(
       required: true,
     },
     password: {
-      name: {
-        type: String,
-        required: true,
-      },
-      email: String,
-      phone: String,
+      type: String,
+      required: true,
     },
     block: Boolean,
     block_date: Date,
@@ -41,5 +37,6 @@ const model = new Schema(
   },
 );
 
-const user = mongoose.model<UserModel.User>('User', model);
-export default user;
+// tslint:disable-next-line:variable-name
+const User = mongoose.model<UserModel.User>('User', model);
+export default User;

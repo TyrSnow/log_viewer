@@ -9,7 +9,7 @@ function ignoreFile(fileName: string, ignores: string[]): boolean {
   if (ignores) {
     const len = ignores.length;
     for (let i = 0; i < len; i += 1) {
-      if (fileName.indexOf(ignores[i])) {
+      if (fileName.indexOf(ignores[i]) !== -1) {
         return true;
       }
     }

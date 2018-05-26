@@ -15,19 +15,17 @@ export function hash_keys(...keys: string[]): string {
   return hash.digest('hex');
 }
 
-export function hash_password(userId: string, sault: string, password: string): string {
+export function hash_password(sault: string, password: string): string {
 
-  return hash_keys(userId, sault, password);
+  return hash_keys(sault, password);
 }
 
 export function valid_password(
-  userId: string,
-  loginName: string,
-  loginPassword: string,
   sault: string,
+  loginPassword: string,
   password: string,
 ): boolean {
-  const hashedPassword = hash_keys(userId, sault, loginPassword);
+  const hashedPassword = hash_keys(sault, loginPassword);
 
   // tslint:disable-next-line:possible-timing-attack
   return hashedPassword === password;

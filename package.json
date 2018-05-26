@@ -18,8 +18,9 @@
       "**/*.spec.ts",
       "**/*.schemas.ts",
       "**/*.schema.ts",
-      "**/*.model.ts",
-      "**/*.enum.ts",
+      "api/config/*.ts",
+      "api/model/*.ts",
+      "api/constants/*.ts",
       "**/server.ts",
       "**/*.js"
     ],
