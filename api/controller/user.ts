@@ -21,6 +21,17 @@ class UserController {
       ERROR(req, res),
     );
   }
+
+  @route('/names', 'get')
+  public name_can_be_used(req, res) {
+    const { name } = req.query;
+
+    this.userService.check_attr_exist('name', name).then(
+      SUCCESS(req, res),
+    ).catch(
+      ERROR(req, res),
+    );
+  }
 }
 
 export default UserController;

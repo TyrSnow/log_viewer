@@ -32,6 +32,17 @@ class UserService {
       return Promise.reject(err);
     });
   }
+
+  public check_attr_exist(
+    attr: string,
+    value: string,
+  ): Promise<boolean> {
+    return User.findOne({
+      [attr]: value,
+    }).then((res) => {
+      return Promise.resolve(!!res);
+    });
+  }
 }
 
 export default UserService;

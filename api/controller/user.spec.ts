@@ -11,7 +11,7 @@ let testUserName;
 let server: Server;
 let request;
 
-describe('Test env ready', () => {
+describe('Test regist', () => {
   before((done) => {
     server = app.listen(3000, () => {
       request = supertest.agent(server);
