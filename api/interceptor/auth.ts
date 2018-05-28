@@ -2,7 +2,7 @@ import * as jwt from 'express-jwt';
 import config from '../config/index';
 import AUTH_TYPE, { hasAuth } from '../constants/auth';
 import { ERROR } from '../help/response';
-import CODE from '../constants/Code';
+import CODE from '../constants/code';
 
 const requestUser = jwt({
   secret: config.secretKey
