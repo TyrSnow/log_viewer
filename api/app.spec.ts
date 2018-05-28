@@ -1,22 +1,58 @@
+/**
+ * 提供request实例
+ */
 import * as mocha from 'mocha';
 import { expect, assert } from 'chai';
 import * as supertest from 'supertest';
 import * as mongoose from 'mongoose';
+import app from './app';
+import { Server } from 'http';
 
-// import app from './app';
+let server: Server;
+let request;
 
-describe('Test env ready', () => {
-  it('should pass', () => {
-    expect(1).to.equal(1);
+let instanceCount = 0;
+let allFinished = false;
+
+before((done) => {
+  allFinished = false;
+  server = app.listen(3000, () => {
+    request = supertest.agent(server);
+    done();
   });
 });
 
-// describe('Test app can be init', () => {
-//   it('should with no error', () => {
-//     expect(supertest(app)).to.be.exist;
-//   });
+after((done) => {
+  allFinished = true;
+  if (instanceCount === 0) {
+    destroy(done);
+  }
+});
 
-  // after(() => {
-  //   mongoose.disconnect();
-  // });
-// });
+function destroy(done?) {
+  setTimeout(
+    () => {
+      server.close(() => {
+        mongoose.disconnect();
+      });
+    },
+    10000,
+  );
+  if (done) {
+    done();
+  }
+}
+
+export function getRequest() {
+  instanceCount += 1;
+
+  return server;
+}
+
+export function  releaseRequest() {
+  instanceCount -= 1;
+  if (instanceCount === 0) {
+    console.log('All request released.');
+    destroy();
+  }
+}

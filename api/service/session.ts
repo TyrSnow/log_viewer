@@ -1,15 +1,26 @@
 import * as jwt from 'jsonwebtoken';
+import config from '../config';
 import { service } from '../core/injector';
+import { UserModel } from '../model/User';
 
 @service()
 class SessionService {
   public sign(
-    payload: any,
+    user: UserModel.User,
     expiresIn: string = '1h',
   ): string {
+    const { name, head, phone, email, auth } = user;
+
     return jwt.sign(
-      payload,
-      ';123',
+      {
+        id: user._id,
+        name,
+        head,
+        phone,
+        email,
+        auth,
+      },
+      config.secretKey,
       {
         expiresIn,
       }

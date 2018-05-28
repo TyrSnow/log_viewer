@@ -3,25 +3,21 @@ import { expect, assert } from 'chai';
 import * as supertest from 'supertest';
 import * as mongoose from 'mongoose';
 
-import app from '../app';
+import { getRequest, releaseRequest } from '../app.spec';
 import CODE from '../constants/code';
 import { Server } from 'http';
 
 let testUserName;
-let server: Server;
-let request;
 
 describe('Test regist', () => {
-  before((done) => {
-    server = app.listen(3000, () => {
-      request = supertest.agent(server);
-      testUserName = `unitTest${Date.now()}`;
-      done();
-    });
+  let server;
+  before(() => {
+    server = getRequest();
+    testUserName = `unitTest${Date.now()}`;
   });
 
   it('should regist success', (done) => {
-    request
+    supertest(server)
       .post('/users')
       .send({
         name: testUserName,
@@ -35,7 +31,7 @@ describe('Test regist', () => {
   });
 
   it('test regist twice', (done) => {
-    request
+    supertest(server)
       .post('/users')
       .send({
         name: testUserName,
@@ -48,11 +44,53 @@ describe('Test regist', () => {
       });
   });
 
-  after((done) => {
-    server.close(() => {
-      mongoose.disconnect(() => {
-        done();
+  after(() => {
+    releaseRequest();
+  });
+});
+
+describe('Test valid name', () => {
+  let server;
+  before(() => {
+    server = getRequest();
+    testUserName = `unitTest${Date.now()}`;
+  });
+
+  it('status should be 400', (done) => {
+    supertest(server)
+      .get('/users/names')
+      .expect(400)
+      .end((err, res) => {
+        expect(err).not.exist;
+        done(err);
       });
-    });
+  });
+
+  it('should return true when test unexist name', (done) => {
+    supertest(server)
+      .get('/users/names?name=logViewer2018')
+      .expect(200)
+      .end((err, res) => {
+        expect(err).not.exist;
+        // tslint:disable-next-line:chai-vague-errors
+        expect(res.body.data).to.true;
+        done(err);
+      });
+  });
+
+  it('should return false when test exist name', (done) => {
+    supertest(server)
+      .get('/users/names?name=tianyu')
+      .expect(200)
+      .end((err, res) => {
+        expect(err).not.exist;
+        // tslint:disable-next-line:chai-vague-errors
+        expect(res.body.data).to.false;
+        done(err);
+      });
+  });
+
+  after(() => {
+    releaseRequest();
   });
 });

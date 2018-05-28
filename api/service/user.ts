@@ -6,6 +6,7 @@ import User from '../model/User.Model';
 import { generate_sault, hash_password } from '../help/password';
 import { PromiseProvider } from 'mongoose';
 import CODE from '../constants/code';
+import { UserModel } from '../model/User';
 
 @service()
 class UserService {
@@ -42,6 +43,20 @@ class UserService {
     }).then((res) => {
       return Promise.resolve(!!res);
     });
+  }
+
+  public findOneByLogAttr(
+    name: string
+  ): Promise<UserModel.User> {
+    return User.findOne({
+      $or: [{
+        name,
+      }, {
+        phone: name,
+      }, {
+        email: name,
+      }]
+    }).exec();
   }
 }
 

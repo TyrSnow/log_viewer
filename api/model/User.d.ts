@@ -2,11 +2,6 @@ import { Document } from 'mongoose';
 import AUTH_TYPE from '../constants/auth';
 
 declare namespace UserModel {
-  interface UserPassword {
-    name: string,
-    email?: string,
-    phone?: string,
-  }
 
   interface UserProfile {
     name: string
@@ -17,7 +12,7 @@ declare namespace UserModel {
 
   interface UserAuth {
     sault: string
-    password: UserPassword
+    password: string
     auth: AUTH_TYPE
     block?: boolean
     block_date?: Date

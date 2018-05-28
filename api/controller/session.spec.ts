@@ -13,7 +13,7 @@ let request;
 
 describe('Test log in', () => {
   before(() => {
-    request = getRequest();
+    request = supertest(getRequest());
   });
 
   it('should login success', (done) => {
@@ -57,7 +57,7 @@ describe('Test log in', () => {
 let token;
 describe('Test solve_auth', () => {
   before((done) => {
-    request = getRequest();
+    request = supertest(getRequest());
     request.post('/session')
       .send({
         name: testUserName,

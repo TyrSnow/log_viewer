@@ -6,9 +6,11 @@ const generateControllerRoute = (controller) => {
   const route = Router();
   const propType = Object.getPrototypeOf(controller);
   Object.keys(propType).map((key) => {
-    const { method, path = '' } = controller[key];
+    const { method, path = '', interceptors = [] } = controller[key];
     if (method) {
-      route[method](path, controller[key].bind(controller));
+      interceptors.unshift(path);
+      interceptors.push(controller[key].bind(controller));
+      route[method].apply(route, interceptors);
     }
   });
 
