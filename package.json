@@ -1,12 +1,13 @@
 {
   "name": "log_viewer",
-  "version": "Beta0.0.1",
+  "version": "0.0.1-Beta",
   "author": {
     "name": "Yu Tian"
   },
   "scripts": {
     "lint": "tslint -c tslint.json 'api/**/*.ts'",
-    "test": "set NODE_ENV=test&& nyc mocha -r ./node_modules/ts-node/register -r ./node_modules/source-map-support/register api/**/*.spec.ts"
+    "test": "set NODE_ENV=test&& nyc mocha -r ./node_modules/ts-node/register -r ./node_modules/source-map-support/register api/**/*.spec.ts",
+    "build": "tsc"
   },
   "nyc": {
     "extension": [
