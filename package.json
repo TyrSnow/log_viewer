@@ -7,6 +7,7 @@
   "scripts": {
     "lint": "tslint -c tslint.json 'api/**/*.ts'",
     "test": "set NODE_ENV=test&& nyc mocha -r ./node_modules/ts-node/register -r ./node_modules/source-map-support/register api/**/*.spec.ts",
+    "test-ci": "nyc npm test && nyc report --reporter=text-lcov > coverage.lcov && codecov",
     "build": "tsc"
   },
   "nyc": {
@@ -48,6 +49,7 @@
     "@types/mocha": "^5.2.0",
     "@types/mongoose": "^5.0.14",
     "@types/supertest": "^2.0.4",
+    "codecov": "^3.0.0",
     "chai": "^4.1.2",
     "mocha": "^5.2.0",
     "nyc": "^11.8.0",

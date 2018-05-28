@@ -12,6 +12,6 @@ services:
 install:
   - npm i npminstall && npminstall
 before_script:
-  - npm run test
+  - npm run test-ci
 script:
   - npm run build
