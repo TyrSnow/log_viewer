@@ -44,6 +44,32 @@ describe('Test regist', () => {
       });
   });
 
+  it('test name not exist', (done) => {
+    supertest(server)
+    .post('/users')
+    .send({
+      password: '123456',
+    })
+    .expect(400)
+    .end((err, res) => {
+      expect(err).not.exist;
+      done(err);
+    });
+  });
+
+  it('test password not exist', (done) => {
+    supertest(server)
+    .post('/users')
+    .send({
+      name: testUserName,
+    })
+    .expect(400)
+    .end((err, res) => {
+      expect(err).not.exist;
+      done(err);
+    });
+  });
+
   after(() => {
     releaseRequest();
   });
@@ -72,8 +98,7 @@ describe('Test valid name', () => {
       .expect(200)
       .end((err, res) => {
         expect(err).not.exist;
-        // tslint:disable-next-line:chai-vague-errors
-        expect(res.body.data).to.true;
+        expect(res.body.data).to.false;
         done(err);
       });
   });
@@ -84,8 +109,7 @@ describe('Test valid name', () => {
       .expect(200)
       .end((err, res) => {
         expect(err).not.exist;
-        // tslint:disable-next-line:chai-vague-errors
-        expect(res.body.data).to.false;
+        expect(res.body.data).to.true;
         done(err);
       });
   });

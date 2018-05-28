@@ -1,5 +1,5 @@
-const userSchemas = {
-  regist: {
+const sessionSchemas = {
+  login: {
     body: {
       type: 'object',
       properties: {
@@ -11,20 +11,12 @@ const userSchemas = {
           type: 'string',
           required: true,
         },
+        remember: {
+          type: 'boolean',
+        },
       },
     },
   },
-  name_can_be_used: {
-    query: {
-      type: 'object',
-      properties: {
-        name: {
-          type: 'string',
-          required: true,
-        }
-      }
-    }
-  }
 };
 
-export default userSchemas;
+export default sessionSchemas;

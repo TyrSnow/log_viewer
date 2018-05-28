@@ -52,7 +52,6 @@ export function getRequest() {
 export function  releaseRequest() {
   instanceCount -= 1;
   if (instanceCount === 0) {
-    console.log('All request released.');
     destroy();
   }
 }

@@ -4,6 +4,7 @@
     "node_modules/tslint-microsoft-contrib"
   ],
   "rules": {
+    "chai-vague-errors": false,
     "no-import-side-effect": false,
     "no-unused-expression": false,
     "no-backbone-get-set-outside-model": false,

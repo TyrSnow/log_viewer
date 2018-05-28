@@ -12,8 +12,55 @@ const testPassword = '123456';
 let request;
 
 describe('Test log in', () => {
-  before(() => {
+  before((done) => {
     request = supertest(getRequest());
+    request
+      .post('/users')
+      .send({
+        name: testUserName,
+        password: testPassword,
+      })
+      .expect(200)
+      .end((err, res) => {
+        expect(err).not.exist;
+        done(err);
+      });
+  });
+
+  it('validate params: no all', (done) => {
+    request
+      .post('/session')
+      .expect(400)
+      .end((err, res) => {
+        expect(err).not.exist;
+        done(err);
+      });
+  });
+
+  it('validate params: no password', (done) => {
+    request
+      .post('/session')
+      .send({
+        name: testUserName,
+      })
+      .expect(400)
+      .end((err, res) => {
+        expect(err).not.exist;
+        done(err);
+      });
+  });
+
+  it('validate params: no name', (done) => {
+    request
+      .post('/session')
+      .send({
+        password: testPassword,
+      })
+      .expect(400)
+      .end((err, res) => {
+        expect(err).not.exist;
+        done(err);
+      });
   });
 
   it('should login success', (done) => {
@@ -26,8 +73,6 @@ describe('Test log in', () => {
       .expect(200)
       .end((err, res) => {
         expect(err).not.exist;
-        console.log('success response is：', res.body);
-        // tslint:disable-next-line:chai-vague-errors
         expect(res.body.success).to.equal(true);
         done(err);
       });
@@ -40,10 +85,9 @@ describe('Test log in', () => {
         name: testUserName,
         password: '456123',
       })
-      .expect(400)
+      .expect(200)
       .end((err, res) => {
         expect(err).not.exist;
-        console.log('fail response is：', res.body);
         expect(res.body.code).to.equal(CODE.PASSWORD_NOT_MATCH.code);
         done(err);
       });

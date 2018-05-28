@@ -6,6 +6,8 @@ import SessionService from '../service/session';
 import { valid_password } from '../help/password';
 import CODE from '../constants/code';
 import { auth, AUTH_TYPE } from '../interceptor/auth';
+import validator from '../interceptor/validator';
+import sessionSchemas from '../schemas/session';
 
 @controller({
   path: '/session',
@@ -17,9 +19,10 @@ class Session {
   ) {}
 
   @route('/', 'post')
+  @validator(sessionSchemas.login)
   public login(req, res) {
     console.debug('Try to login: ', req.body);
-    const { name, password, remember } = req.body;
+    const { name, password, remember = false } = req.body;
 
     this.userService.findOneByLogAttr(name).then(
       (user) => {

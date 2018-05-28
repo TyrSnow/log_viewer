@@ -15,6 +15,7 @@ class UserController {
   ) {}
 
   @route('/', 'post')
+  @validator(userSchemas.regist)
   public regist(req, res) {
     const { name, password } = req.body;
     this.userService.regist(name, password).then(
